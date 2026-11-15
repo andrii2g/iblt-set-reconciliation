@@ -71,6 +71,24 @@ even though their counts are zero:
 cargo run --release -- demo --common 0 --a-only 1 --b-only 1 --cells 3
 ```
 
+Export a small peeling cascade as a standalone SVG:
+
+```sh
+cargo run --release -- demo --common 20 --a-only 3 --b-only 2 --cells 18 --seed 42 --svg output/peeling.svg
+```
+
+Open the SVG in a browser or image viewer. Its three hash regions show counts,
+full key/checksum XOR values, and signed recoverable keys. Each step highlights
+the source, updated cells, and newly recoverable entries. Small traces show all
+steps; large traces sample snapshots and label omitted steps, while always
+showing the initial and final states. Residual mixed cells remain visibly
+unresolved even with a count of zero. SVG tracing/rendering is excluded from the
+reported decode time. Add `--svg output/stalled.svg` to the stalled example to
+inspect failure in the same format.
+
+Committed examples: [five-key peeling cascade](docs/peeling.svg) and
+[stalled zero-count residual](docs/stalled.svg).
+
 Background: Goodrich and Mitzenmacher,
 [Invertible Bloom Lookup Tables](https://arxiv.org/abs/1101.2245).
 This project focuses on sets; key-value records, networking, and automatic table

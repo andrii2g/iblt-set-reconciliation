@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1532" height="482" viewBox="0 0 1532 482" role="img" aria-labelledby="title description">
+<title id="title">IBLT set reconciliation: 0 peeling steps</title>
+<desc id="description">Three hash regions show signed recoverable keys, the cells updated by each selected peeling step, and the final residual. Incomplete recovery: nonzero residual cells remain. Checksums make recovery probabilistic.</desc>
+<style>
+text { font-family: ui-monospace, Consolas, monospace; fill: #172b4d; }
+.heading { font-family: system-ui, sans-serif; font-size: 25px; font-weight: 700; }
+.subheading { font-family: system-ui, sans-serif; font-size: 15px; }
+.small { font-size: 11px; }
+.celltext { font-size: 10px; }
+.cellhead { font-size: 11px; font-weight: 700; }
+.step { font-size: 15px; font-weight: 700; }
+</style>
+<rect width="1532" height="482" fill="#f5f8fc"/>
+<text x="28" y="40" class="heading">IBLT: peel the unordered set difference</text>
+<text x="28" y="68" class="subheading">3 cells | seed 42 | 0 peeling steps | 3 nonzero residual cells</text>
+<text x="28" y="94" class="subheading" style="fill:#b91c1c;font-weight:700">INCOMPLETE: the decoder stalled with unresolved data</text>
+<rect x="28" y="113" width="15" height="15" rx="3" fill="#ffffff" stroke="#c3cfdd" stroke-width="2"/>
+<text x="51" y="125" class="small">Empty</text>
+<rect x="115" y="113" width="15" height="15" rx="3" fill="#e6edf5" stroke="#a8b7c9" stroke-width="2"/>
+<text x="138" y="125" class="small">Mixed</text>
+<rect x="202" y="113" width="15" height="15" rx="3" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+<text x="225" y="125" class="small">A only (+)</text>
+<rect x="324" y="113" width="15" height="15" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<text x="347" y="125" class="small">B only (-)</text>
+<rect x="446" y="113" width="15" height="15" rx="3" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+<text x="469" y="125" class="small">Updated</text>
+<rect x="547" y="113" width="15" height="15" rx="3" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+<text x="570" y="125" class="small">Newly recoverable</text>
+<text x="28" y="155" class="small">A dark outline marks the source cell. Key/check fields are hexadecimal. A count of zero alone does not mean empty.</text>
+<g data-step="0"><text x="28" y="188" class="step">Initial difference table: A minus B</text>
+<text x="28" y="211" class="small">Nonzero cells: 3 | Recoverable cells: 0</text>
+<text x="28" y="254" class="cellhead">HASH REGION 1 (cells 0..0)</text>
+<g><title>Cell 0: count 0, key XOR c7c52f98e7fc76fc, checksum XOR 362c87b20efcd454</title><rect x="28" y="266" width="148" height="78" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1"/>
+<text x="35" y="281" class="cellhead">#0 c:+0</text>
+<text x="35" y="299" class="celltext">key c7c52f98e7fc76fc</text>
+<text x="35" y="315" class="celltext">chk 362c87b20efcd454</text>
+<text x="35" y="333" class="celltext">unresolved</text></g>
+<text x="520" y="254" class="cellhead">HASH REGION 2 (cells 1..1)</text>
+<g><title>Cell 1: count 0, key XOR c7c52f98e7fc76fc, checksum XOR 362c87b20efcd454</title><rect x="520" y="266" width="148" height="78" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1"/>
+<text x="527" y="281" class="cellhead">#1 c:+0</text>
+<text x="527" y="299" class="celltext">key c7c52f98e7fc76fc</text>
+<text x="527" y="315" class="celltext">chk 362c87b20efcd454</text>
+<text x="527" y="333" class="celltext">unresolved</text></g>
+<text x="1012" y="254" class="cellhead">HASH REGION 3 (cells 2..2)</text>
+<g><title>Cell 2: count 0, key XOR c7c52f98e7fc76fc, checksum XOR 362c87b20efcd454</title><rect x="1012" y="266" width="148" height="78" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1"/>
+<text x="1019" y="281" class="cellhead">#2 c:+0</text>
+<text x="1019" y="299" class="celltext">key c7c52f98e7fc76fc</text>
+<text x="1019" y="315" class="celltext">chk 362c87b20efcd454</text>
+<text x="1019" y="333" class="celltext">unresolved</text></g>
+</g>
+<text x="28" y="448" class="small">Completion is the decoder's residual check; use the CLI HashSet oracle result to independently verify the recovered keys.</text>
+</svg>

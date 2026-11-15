@@ -2,7 +2,7 @@ use clap::{Args, Parser, Subcommand};
 use iblt_set_reconciliation::{
     Config, DecodeReport, DecodeStatus, Iblt,
     dataset::{generate_sets, verify, verify_partial},
-    encoding,
+    encoding, svg,
 };
 use serde::Serialize;
 use std::{fs, path::Path, path::PathBuf, process::ExitCode, time::Instant};
@@ -50,6 +50,9 @@ struct DemoArgs {
     /// Save the transmitted A summary in the versioned binary format.
     #[arg(long, value_name = "FILE")]
     summary: Option<PathBuf>,
+    /// Save a standalone cell diagram of the actual peeling trace.
+    #[arg(long, value_name = "FILE")]
+    svg: Option<PathBuf>,
 }
 
 #[derive(Serialize)]
@@ -113,9 +116,16 @@ fn demo(args: DemoArgs) -> Result<u8, String> {
     let start = Instant::now();
     let delta = received_a.subtract(&b).map_err(|err| err.to_string())?;
     let subtract_ns = start.elapsed().as_nanos();
+    // Keep visualization work outside the decoder timing used in the report.
+    let trace_input = args.svg.as_ref().map(|_| delta.clone());
     let start = Instant::now();
     let decoded = delta.decode();
     let decode_ns = start.elapsed().as_nanos();
+    let diagram = trace_input.map(|table| {
+        let (traced, trace) = table.decode_with_trace();
+        debug_assert_eq!(traced, decoded);
+        svg::render_svg(&trace)
+    });
 
     let oracle_match = verify(&decoded, &sets);
     let recovered_keys_valid = verify_partial(&decoded, &sets);
@@ -158,12 +168,18 @@ fn demo(args: DemoArgs) -> Result<u8, String> {
         let json = serde_json::to_vec_pretty(&report).map_err(|err| err.to_string())?;
         write_output(path, &json)?;
     }
+    if let (Some(path), Some(diagram)) = (&args.svg, &diagram) {
+        write_output(path, diagram.as_bytes())?;
+    }
     print_demo(&report);
     if let Some(path) = &args.summary {
         println!("Binary summary: {}", path.display());
     }
     if let Some(path) = &args.json {
         println!("JSON report: {}", path.display());
+    }
+    if let Some(path) = &args.svg {
+        println!("SVG peeling diagram: {}", path.display());
     }
     Ok(code)
 }

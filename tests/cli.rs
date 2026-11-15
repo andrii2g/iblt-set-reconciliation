@@ -63,3 +63,21 @@ fn invalid_capacity_and_oversized_sets_fail_cleanly() {
         assert!(String::from_utf8_lossy(&output.stderr).contains("error:"));
     }
 }
+
+#[test]
+fn diagram_shows_an_incomplete_zero_count_residual() {
+    let path = output_path("diagram").with_extension("svg");
+    let output = binary()
+        .args([
+            "demo", "--common", "0", "--a-only", "1", "--b-only", "1", "--cells", "3", "--svg",
+        ])
+        .arg(&path)
+        .output()
+        .unwrap();
+    assert_eq!(output.status.code(), Some(3));
+    let svg = fs::read_to_string(&path).unwrap();
+    assert!(svg.starts_with("<svg "));
+    assert!(svg.contains("INCOMPLETE"));
+    assert!(svg.contains("3 nonzero residual cells"));
+    fs::remove_file(path).unwrap();
+}

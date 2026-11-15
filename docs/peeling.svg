@@ -1,0 +1,612 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1532" height="2118" viewBox="0 0 1532 2118" role="img" aria-labelledby="title description">
+<title id="title">IBLT set reconciliation: 5 peeling steps</title>
+<desc id="description">Three hash regions show signed recoverable keys, the cells updated by each selected peeling step, and the final residual. Complete recovery: every residual field is zero. Checksums make recovery probabilistic.</desc>
+<style>
+text { font-family: ui-monospace, Consolas, monospace; fill: #172b4d; }
+.heading { font-family: system-ui, sans-serif; font-size: 25px; font-weight: 700; }
+.subheading { font-family: system-ui, sans-serif; font-size: 15px; }
+.small { font-size: 11px; }
+.celltext { font-size: 10px; }
+.cellhead { font-size: 11px; font-weight: 700; }
+.step { font-size: 15px; font-weight: 700; }
+</style>
+<rect width="1532" height="2118" fill="#f5f8fc"/>
+<text x="28" y="40" class="heading">IBLT: peel the unordered set difference</text>
+<text x="28" y="68" class="subheading">18 cells | seed 42 | 5 peeling steps | 0 nonzero residual cells</text>
+<text x="28" y="94" class="subheading" style="fill:#047857;font-weight:700">COMPLETE: every residual field is zero</text>
+<rect x="28" y="113" width="15" height="15" rx="3" fill="#ffffff" stroke="#c3cfdd" stroke-width="2"/>
+<text x="51" y="125" class="small">Empty</text>
+<rect x="115" y="113" width="15" height="15" rx="3" fill="#e6edf5" stroke="#a8b7c9" stroke-width="2"/>
+<text x="138" y="125" class="small">Mixed</text>
+<rect x="202" y="113" width="15" height="15" rx="3" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+<text x="225" y="125" class="small">A only (+)</text>
+<rect x="324" y="113" width="15" height="15" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<text x="347" y="125" class="small">B only (-)</text>
+<rect x="446" y="113" width="15" height="15" rx="3" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+<text x="469" y="125" class="small">Updated</text>
+<rect x="547" y="113" width="15" height="15" rx="3" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+<text x="570" y="125" class="small">Newly recoverable</text>
+<text x="28" y="155" class="small">A dark outline marks the source cell. Key/check fields are hexadecimal. A count of zero alone does not mean empty.</text>
+<g data-step="0"><text x="28" y="188" class="step">Initial difference table: A minus B</text>
+<text x="28" y="211" class="small">Nonzero cells: 12 | Recoverable cells: 9</text>
+<text x="28" y="254" class="cellhead">HASH REGION 1 (cells 0..5)</text>
+<g><title>Cell 0: count 1, key XOR df890a4933721ba2, checksum XOR 6819ce33305529a1</title><rect x="28" y="266" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="35" y="281" class="cellhead">#0 c:+1</text>
+<text x="35" y="299" class="celltext">key df890a4933721ba2</text>
+<text x="35" y="315" class="celltext">chk 6819ce33305529a1</text>
+<text x="35" y="333" class="celltext">+0xdf890a4933721ba2</text></g>
+<g><title>Cell 1: count 1, key XOR 4f7abb7627b74f52, checksum XOR ca8ffe02d699ff09</title><rect x="184" y="266" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="191" y="281" class="cellhead">#1 c:+1</text>
+<text x="191" y="299" class="celltext">key 4f7abb7627b74f52</text>
+<text x="191" y="315" class="celltext">chk ca8ffe02d699ff09</text>
+<text x="191" y="333" class="celltext">+0x4f7abb7627b74f52</text></g>
+<g><title>Cell 2: count -1, key XOR 0724ea9269d42a72, checksum XOR d5ffbaf89418c243</title><rect x="340" y="266" width="148" height="78" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+<text x="347" y="281" class="cellhead">#2 c:-1</text>
+<text x="347" y="299" class="celltext">key 0724ea9269d42a72</text>
+<text x="347" y="315" class="celltext">chk d5ffbaf89418c243</text>
+<text x="347" y="333" class="celltext">-0x0724ea9269d42a72</text></g>
+<g><title>Cell 3: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="28" y="352" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="35" y="367" class="cellhead">#3 c:+0</text>
+<text x="35" y="385" class="celltext">key 0000000000000000</text>
+<text x="35" y="401" class="celltext">chk 0000000000000000</text>
+<text x="35" y="419" class="celltext">empty</text></g>
+<g><title>Cell 4: count -1, key XOR 540f172e046ef165, checksum XOR 661185e5e9acc29d</title><rect x="184" y="352" width="148" height="78" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+<text x="191" y="367" class="cellhead">#4 c:-1</text>
+<text x="191" y="385" class="celltext">key 540f172e046ef165</text>
+<text x="191" y="401" class="celltext">chk 661185e5e9acc29d</text>
+<text x="191" y="419" class="celltext">-0x540f172e046ef165</text></g>
+<g><title>Cell 5: count 1, key XOR 32469675332a0efc, checksum XOR 8b91bea0b8b2f6ab</title><rect x="340" y="352" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="347" y="367" class="cellhead">#5 c:+1</text>
+<text x="347" y="385" class="celltext">key 32469675332a0efc</text>
+<text x="347" y="401" class="celltext">chk 8b91bea0b8b2f6ab</text>
+<text x="347" y="419" class="celltext">+0x32469675332a0efc</text></g>
+<text x="520" y="254" class="cellhead">HASH REGION 2 (cells 6..11)</text>
+<g><title>Cell 6: count 0, key XOR d8ade0db5aa631d0, checksum XOR bde674cba44debe2</title><rect x="520" y="266" width="148" height="78" rx="6" fill="#e6edf5" stroke="#a8b7c9" stroke-width="1"/>
+<text x="527" y="281" class="cellhead">#6 c:+0</text>
+<text x="527" y="299" class="celltext">key d8ade0db5aa631d0</text>
+<text x="527" y="315" class="celltext">chk bde674cba44debe2</text>
+<text x="527" y="333" class="celltext">unresolved</text></g>
+<g><title>Cell 7: count 1, key XOR 32469675332a0efc, checksum XOR 8b91bea0b8b2f6ab</title><rect x="676" y="266" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="683" y="281" class="cellhead">#7 c:+1</text>
+<text x="683" y="299" class="celltext">key 32469675332a0efc</text>
+<text x="683" y="315" class="celltext">chk 8b91bea0b8b2f6ab</text>
+<text x="683" y="333" class="celltext">+0x32469675332a0efc</text></g>
+<g><title>Cell 8: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="832" y="266" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="839" y="281" class="cellhead">#8 c:+0</text>
+<text x="839" y="299" class="celltext">key 0000000000000000</text>
+<text x="839" y="315" class="celltext">chk 0000000000000000</text>
+<text x="839" y="333" class="celltext">empty</text></g>
+<g><title>Cell 9: count 0, key XOR 1b75ac5823d9be37, checksum XOR ac9e7be73f353d94</title><rect x="520" y="352" width="148" height="78" rx="6" fill="#e6edf5" stroke="#a8b7c9" stroke-width="1"/>
+<text x="527" y="367" class="cellhead">#9 c:+0</text>
+<text x="527" y="385" class="celltext">key 1b75ac5823d9be37</text>
+<text x="527" y="401" class="celltext">chk ac9e7be73f353d94</text>
+<text x="527" y="419" class="celltext">unresolved</text></g>
+<g><title>Cell 10: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="676" y="352" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="683" y="367" class="cellhead">#10 c:+0</text>
+<text x="683" y="385" class="celltext">key 0000000000000000</text>
+<text x="683" y="401" class="celltext">chk 0000000000000000</text>
+<text x="683" y="419" class="celltext">empty</text></g>
+<g><title>Cell 11: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="832" y="352" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="839" y="367" class="cellhead">#11 c:+0</text>
+<text x="839" y="385" class="celltext">key 0000000000000000</text>
+<text x="839" y="401" class="celltext">chk 0000000000000000</text>
+<text x="839" y="419" class="celltext">empty</text></g>
+<text x="1012" y="254" class="cellhead">HASH REGION 3 (cells 12..17)</text>
+<g><title>Cell 12: count 0, key XOR 8b861d67371ceac7, checksum XOR 0e084bd6d9f9eb3c</title><rect x="1012" y="266" width="148" height="78" rx="6" fill="#e6edf5" stroke="#a8b7c9" stroke-width="1"/>
+<text x="1019" y="281" class="cellhead">#12 c:+0</text>
+<text x="1019" y="299" class="celltext">key 8b861d67371ceac7</text>
+<text x="1019" y="315" class="celltext">chk 0e084bd6d9f9eb3c</text>
+<text x="1019" y="333" class="celltext">unresolved</text></g>
+<g><title>Cell 13: count 1, key XOR 4f7abb7627b74f52, checksum XOR ca8ffe02d699ff09</title><rect x="1168" y="266" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="1175" y="281" class="cellhead">#13 c:+1</text>
+<text x="1175" y="299" class="celltext">key 4f7abb7627b74f52</text>
+<text x="1175" y="315" class="celltext">chk ca8ffe02d699ff09</text>
+<text x="1175" y="333" class="celltext">+0x4f7abb7627b74f52</text></g>
+<g><title>Cell 14: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1324" y="266" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1331" y="281" class="cellhead">#14 c:+0</text>
+<text x="1331" y="299" class="celltext">key 0000000000000000</text>
+<text x="1331" y="315" class="celltext">chk 0000000000000000</text>
+<text x="1331" y="333" class="celltext">empty</text></g>
+<g><title>Cell 15: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1012" y="352" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1019" y="367" class="cellhead">#15 c:+0</text>
+<text x="1019" y="385" class="celltext">key 0000000000000000</text>
+<text x="1019" y="401" class="celltext">chk 0000000000000000</text>
+<text x="1019" y="419" class="celltext">empty</text></g>
+<g><title>Cell 16: count 1, key XOR 32469675332a0efc, checksum XOR 8b91bea0b8b2f6ab</title><rect x="1168" y="352" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="1175" y="367" class="cellhead">#16 c:+1</text>
+<text x="1175" y="385" class="celltext">key 32469675332a0efc</text>
+<text x="1175" y="401" class="celltext">chk 8b91bea0b8b2f6ab</text>
+<text x="1175" y="419" class="celltext">+0x32469675332a0efc</text></g>
+<g><title>Cell 17: count -1, key XOR 0724ea9269d42a72, checksum XOR d5ffbaf89418c243</title><rect x="1324" y="352" width="148" height="78" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+<text x="1331" y="367" class="cellhead">#17 c:-1</text>
+<text x="1331" y="385" class="celltext">key 0724ea9269d42a72</text>
+<text x="1331" y="401" class="celltext">chk d5ffbaf89418c243</text>
+<text x="1331" y="419" class="celltext">-0x0724ea9269d42a72</text></g>
+</g>
+<g data-step="1"><text x="28" y="498" class="step">Step 1/5: peeled +0xdf890a4933721ba2 from cell 0 (A only)</text>
+<text x="28" y="521" class="small">Nonzero cells: 11 | Recoverable cells: 10</text>
+<text x="28" y="541" class="small">Updated cells: 0, 6, 12 | Newly recoverable cells: 6, 12</text>
+<text x="28" y="564" class="cellhead">HASH REGION 1 (cells 0..5)</text>
+<g><title>Cell 0: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000 SOURCE</title><rect x="28" y="576" width="148" height="78" rx="6" fill="#ffffff" stroke="#172b4d" stroke-width="3"/>
+<text x="35" y="591" class="cellhead">#0 c:+0</text>
+<text x="35" y="609" class="celltext">key 0000000000000000</text>
+<text x="35" y="625" class="celltext">chk 0000000000000000</text>
+<text x="35" y="643" class="celltext">empty</text></g>
+<g><title>Cell 1: count 1, key XOR 4f7abb7627b74f52, checksum XOR ca8ffe02d699ff09</title><rect x="184" y="576" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="191" y="591" class="cellhead">#1 c:+1</text>
+<text x="191" y="609" class="celltext">key 4f7abb7627b74f52</text>
+<text x="191" y="625" class="celltext">chk ca8ffe02d699ff09</text>
+<text x="191" y="643" class="celltext">+0x4f7abb7627b74f52</text></g>
+<g><title>Cell 2: count -1, key XOR 0724ea9269d42a72, checksum XOR d5ffbaf89418c243</title><rect x="340" y="576" width="148" height="78" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+<text x="347" y="591" class="cellhead">#2 c:-1</text>
+<text x="347" y="609" class="celltext">key 0724ea9269d42a72</text>
+<text x="347" y="625" class="celltext">chk d5ffbaf89418c243</text>
+<text x="347" y="643" class="celltext">-0x0724ea9269d42a72</text></g>
+<g><title>Cell 3: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="28" y="662" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="35" y="677" class="cellhead">#3 c:+0</text>
+<text x="35" y="695" class="celltext">key 0000000000000000</text>
+<text x="35" y="711" class="celltext">chk 0000000000000000</text>
+<text x="35" y="729" class="celltext">empty</text></g>
+<g><title>Cell 4: count -1, key XOR 540f172e046ef165, checksum XOR 661185e5e9acc29d</title><rect x="184" y="662" width="148" height="78" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+<text x="191" y="677" class="cellhead">#4 c:-1</text>
+<text x="191" y="695" class="celltext">key 540f172e046ef165</text>
+<text x="191" y="711" class="celltext">chk 661185e5e9acc29d</text>
+<text x="191" y="729" class="celltext">-0x540f172e046ef165</text></g>
+<g><title>Cell 5: count 1, key XOR 32469675332a0efc, checksum XOR 8b91bea0b8b2f6ab</title><rect x="340" y="662" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="347" y="677" class="cellhead">#5 c:+1</text>
+<text x="347" y="695" class="celltext">key 32469675332a0efc</text>
+<text x="347" y="711" class="celltext">chk 8b91bea0b8b2f6ab</text>
+<text x="347" y="729" class="celltext">+0x32469675332a0efc</text></g>
+<text x="520" y="564" class="cellhead">HASH REGION 2 (cells 6..11)</text>
+<g><title>Cell 6: count -1, key XOR 0724ea9269d42a72, checksum XOR d5ffbaf89418c243 NEW</title><rect x="520" y="576" width="148" height="78" rx="6" fill="#dbeafe" stroke="#d97706" stroke-width="3"/>
+<text x="527" y="591" class="cellhead">#6 c:-1</text>
+<text x="527" y="609" class="celltext">key 0724ea9269d42a72</text>
+<text x="527" y="625" class="celltext">chk d5ffbaf89418c243</text>
+<text x="527" y="643" class="celltext">-0x0724ea9269d42a72</text></g>
+<g><title>Cell 7: count 1, key XOR 32469675332a0efc, checksum XOR 8b91bea0b8b2f6ab</title><rect x="676" y="576" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="683" y="591" class="cellhead">#7 c:+1</text>
+<text x="683" y="609" class="celltext">key 32469675332a0efc</text>
+<text x="683" y="625" class="celltext">chk 8b91bea0b8b2f6ab</text>
+<text x="683" y="643" class="celltext">+0x32469675332a0efc</text></g>
+<g><title>Cell 8: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="832" y="576" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="839" y="591" class="cellhead">#8 c:+0</text>
+<text x="839" y="609" class="celltext">key 0000000000000000</text>
+<text x="839" y="625" class="celltext">chk 0000000000000000</text>
+<text x="839" y="643" class="celltext">empty</text></g>
+<g><title>Cell 9: count 0, key XOR 1b75ac5823d9be37, checksum XOR ac9e7be73f353d94</title><rect x="520" y="662" width="148" height="78" rx="6" fill="#e6edf5" stroke="#a8b7c9" stroke-width="1"/>
+<text x="527" y="677" class="cellhead">#9 c:+0</text>
+<text x="527" y="695" class="celltext">key 1b75ac5823d9be37</text>
+<text x="527" y="711" class="celltext">chk ac9e7be73f353d94</text>
+<text x="527" y="729" class="celltext">unresolved</text></g>
+<g><title>Cell 10: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="676" y="662" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="683" y="677" class="cellhead">#10 c:+0</text>
+<text x="683" y="695" class="celltext">key 0000000000000000</text>
+<text x="683" y="711" class="celltext">chk 0000000000000000</text>
+<text x="683" y="729" class="celltext">empty</text></g>
+<g><title>Cell 11: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="832" y="662" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="839" y="677" class="cellhead">#11 c:+0</text>
+<text x="839" y="695" class="celltext">key 0000000000000000</text>
+<text x="839" y="711" class="celltext">chk 0000000000000000</text>
+<text x="839" y="729" class="celltext">empty</text></g>
+<text x="1012" y="564" class="cellhead">HASH REGION 3 (cells 12..17)</text>
+<g><title>Cell 12: count -1, key XOR 540f172e046ef165, checksum XOR 661185e5e9acc29d NEW</title><rect x="1012" y="576" width="148" height="78" rx="6" fill="#dbeafe" stroke="#d97706" stroke-width="3"/>
+<text x="1019" y="591" class="cellhead">#12 c:-1</text>
+<text x="1019" y="609" class="celltext">key 540f172e046ef165</text>
+<text x="1019" y="625" class="celltext">chk 661185e5e9acc29d</text>
+<text x="1019" y="643" class="celltext">-0x540f172e046ef165</text></g>
+<g><title>Cell 13: count 1, key XOR 4f7abb7627b74f52, checksum XOR ca8ffe02d699ff09</title><rect x="1168" y="576" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="1175" y="591" class="cellhead">#13 c:+1</text>
+<text x="1175" y="609" class="celltext">key 4f7abb7627b74f52</text>
+<text x="1175" y="625" class="celltext">chk ca8ffe02d699ff09</text>
+<text x="1175" y="643" class="celltext">+0x4f7abb7627b74f52</text></g>
+<g><title>Cell 14: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1324" y="576" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1331" y="591" class="cellhead">#14 c:+0</text>
+<text x="1331" y="609" class="celltext">key 0000000000000000</text>
+<text x="1331" y="625" class="celltext">chk 0000000000000000</text>
+<text x="1331" y="643" class="celltext">empty</text></g>
+<g><title>Cell 15: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1012" y="662" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1019" y="677" class="cellhead">#15 c:+0</text>
+<text x="1019" y="695" class="celltext">key 0000000000000000</text>
+<text x="1019" y="711" class="celltext">chk 0000000000000000</text>
+<text x="1019" y="729" class="celltext">empty</text></g>
+<g><title>Cell 16: count 1, key XOR 32469675332a0efc, checksum XOR 8b91bea0b8b2f6ab</title><rect x="1168" y="662" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="1175" y="677" class="cellhead">#16 c:+1</text>
+<text x="1175" y="695" class="celltext">key 32469675332a0efc</text>
+<text x="1175" y="711" class="celltext">chk 8b91bea0b8b2f6ab</text>
+<text x="1175" y="729" class="celltext">+0x32469675332a0efc</text></g>
+<g><title>Cell 17: count -1, key XOR 0724ea9269d42a72, checksum XOR d5ffbaf89418c243</title><rect x="1324" y="662" width="148" height="78" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+<text x="1331" y="677" class="cellhead">#17 c:-1</text>
+<text x="1331" y="695" class="celltext">key 0724ea9269d42a72</text>
+<text x="1331" y="711" class="celltext">chk d5ffbaf89418c243</text>
+<text x="1331" y="729" class="celltext">-0x0724ea9269d42a72</text></g>
+</g>
+<g data-step="2"><text x="28" y="808" class="step">Step 2/5: peeled +0x4f7abb7627b74f52 from cell 1 (A only)</text>
+<text x="28" y="831" class="small">Nonzero cells: 9 | Recoverable cells: 9</text>
+<text x="28" y="851" class="small">Updated cells: 1, 9, 13 | Newly recoverable cells: 9</text>
+<text x="28" y="874" class="cellhead">HASH REGION 1 (cells 0..5)</text>
+<g><title>Cell 0: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="28" y="886" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="35" y="901" class="cellhead">#0 c:+0</text>
+<text x="35" y="919" class="celltext">key 0000000000000000</text>
+<text x="35" y="935" class="celltext">chk 0000000000000000</text>
+<text x="35" y="953" class="celltext">empty</text></g>
+<g><title>Cell 1: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000 SOURCE</title><rect x="184" y="886" width="148" height="78" rx="6" fill="#ffffff" stroke="#172b4d" stroke-width="3"/>
+<text x="191" y="901" class="cellhead">#1 c:+0</text>
+<text x="191" y="919" class="celltext">key 0000000000000000</text>
+<text x="191" y="935" class="celltext">chk 0000000000000000</text>
+<text x="191" y="953" class="celltext">empty</text></g>
+<g><title>Cell 2: count -1, key XOR 0724ea9269d42a72, checksum XOR d5ffbaf89418c243</title><rect x="340" y="886" width="148" height="78" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+<text x="347" y="901" class="cellhead">#2 c:-1</text>
+<text x="347" y="919" class="celltext">key 0724ea9269d42a72</text>
+<text x="347" y="935" class="celltext">chk d5ffbaf89418c243</text>
+<text x="347" y="953" class="celltext">-0x0724ea9269d42a72</text></g>
+<g><title>Cell 3: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="28" y="972" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="35" y="987" class="cellhead">#3 c:+0</text>
+<text x="35" y="1005" class="celltext">key 0000000000000000</text>
+<text x="35" y="1021" class="celltext">chk 0000000000000000</text>
+<text x="35" y="1039" class="celltext">empty</text></g>
+<g><title>Cell 4: count -1, key XOR 540f172e046ef165, checksum XOR 661185e5e9acc29d</title><rect x="184" y="972" width="148" height="78" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+<text x="191" y="987" class="cellhead">#4 c:-1</text>
+<text x="191" y="1005" class="celltext">key 540f172e046ef165</text>
+<text x="191" y="1021" class="celltext">chk 661185e5e9acc29d</text>
+<text x="191" y="1039" class="celltext">-0x540f172e046ef165</text></g>
+<g><title>Cell 5: count 1, key XOR 32469675332a0efc, checksum XOR 8b91bea0b8b2f6ab</title><rect x="340" y="972" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="347" y="987" class="cellhead">#5 c:+1</text>
+<text x="347" y="1005" class="celltext">key 32469675332a0efc</text>
+<text x="347" y="1021" class="celltext">chk 8b91bea0b8b2f6ab</text>
+<text x="347" y="1039" class="celltext">+0x32469675332a0efc</text></g>
+<text x="520" y="874" class="cellhead">HASH REGION 2 (cells 6..11)</text>
+<g><title>Cell 6: count -1, key XOR 0724ea9269d42a72, checksum XOR d5ffbaf89418c243</title><rect x="520" y="886" width="148" height="78" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+<text x="527" y="901" class="cellhead">#6 c:-1</text>
+<text x="527" y="919" class="celltext">key 0724ea9269d42a72</text>
+<text x="527" y="935" class="celltext">chk d5ffbaf89418c243</text>
+<text x="527" y="953" class="celltext">-0x0724ea9269d42a72</text></g>
+<g><title>Cell 7: count 1, key XOR 32469675332a0efc, checksum XOR 8b91bea0b8b2f6ab</title><rect x="676" y="886" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="683" y="901" class="cellhead">#7 c:+1</text>
+<text x="683" y="919" class="celltext">key 32469675332a0efc</text>
+<text x="683" y="935" class="celltext">chk 8b91bea0b8b2f6ab</text>
+<text x="683" y="953" class="celltext">+0x32469675332a0efc</text></g>
+<g><title>Cell 8: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="832" y="886" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="839" y="901" class="cellhead">#8 c:+0</text>
+<text x="839" y="919" class="celltext">key 0000000000000000</text>
+<text x="839" y="935" class="celltext">chk 0000000000000000</text>
+<text x="839" y="953" class="celltext">empty</text></g>
+<g><title>Cell 9: count -1, key XOR 540f172e046ef165, checksum XOR 661185e5e9acc29d NEW</title><rect x="520" y="972" width="148" height="78" rx="6" fill="#dbeafe" stroke="#d97706" stroke-width="3"/>
+<text x="527" y="987" class="cellhead">#9 c:-1</text>
+<text x="527" y="1005" class="celltext">key 540f172e046ef165</text>
+<text x="527" y="1021" class="celltext">chk 661185e5e9acc29d</text>
+<text x="527" y="1039" class="celltext">-0x540f172e046ef165</text></g>
+<g><title>Cell 10: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="676" y="972" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="683" y="987" class="cellhead">#10 c:+0</text>
+<text x="683" y="1005" class="celltext">key 0000000000000000</text>
+<text x="683" y="1021" class="celltext">chk 0000000000000000</text>
+<text x="683" y="1039" class="celltext">empty</text></g>
+<g><title>Cell 11: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="832" y="972" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="839" y="987" class="cellhead">#11 c:+0</text>
+<text x="839" y="1005" class="celltext">key 0000000000000000</text>
+<text x="839" y="1021" class="celltext">chk 0000000000000000</text>
+<text x="839" y="1039" class="celltext">empty</text></g>
+<text x="1012" y="874" class="cellhead">HASH REGION 3 (cells 12..17)</text>
+<g><title>Cell 12: count -1, key XOR 540f172e046ef165, checksum XOR 661185e5e9acc29d</title><rect x="1012" y="886" width="148" height="78" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+<text x="1019" y="901" class="cellhead">#12 c:-1</text>
+<text x="1019" y="919" class="celltext">key 540f172e046ef165</text>
+<text x="1019" y="935" class="celltext">chk 661185e5e9acc29d</text>
+<text x="1019" y="953" class="celltext">-0x540f172e046ef165</text></g>
+<g><title>Cell 13: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1168" y="886" width="148" height="78" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+<text x="1175" y="901" class="cellhead">#13 c:+0</text>
+<text x="1175" y="919" class="celltext">key 0000000000000000</text>
+<text x="1175" y="935" class="celltext">chk 0000000000000000</text>
+<text x="1175" y="953" class="celltext">empty</text></g>
+<g><title>Cell 14: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1324" y="886" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1331" y="901" class="cellhead">#14 c:+0</text>
+<text x="1331" y="919" class="celltext">key 0000000000000000</text>
+<text x="1331" y="935" class="celltext">chk 0000000000000000</text>
+<text x="1331" y="953" class="celltext">empty</text></g>
+<g><title>Cell 15: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1012" y="972" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1019" y="987" class="cellhead">#15 c:+0</text>
+<text x="1019" y="1005" class="celltext">key 0000000000000000</text>
+<text x="1019" y="1021" class="celltext">chk 0000000000000000</text>
+<text x="1019" y="1039" class="celltext">empty</text></g>
+<g><title>Cell 16: count 1, key XOR 32469675332a0efc, checksum XOR 8b91bea0b8b2f6ab</title><rect x="1168" y="972" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="1175" y="987" class="cellhead">#16 c:+1</text>
+<text x="1175" y="1005" class="celltext">key 32469675332a0efc</text>
+<text x="1175" y="1021" class="celltext">chk 8b91bea0b8b2f6ab</text>
+<text x="1175" y="1039" class="celltext">+0x32469675332a0efc</text></g>
+<g><title>Cell 17: count -1, key XOR 0724ea9269d42a72, checksum XOR d5ffbaf89418c243</title><rect x="1324" y="972" width="148" height="78" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+<text x="1331" y="987" class="cellhead">#17 c:-1</text>
+<text x="1331" y="1005" class="celltext">key 0724ea9269d42a72</text>
+<text x="1331" y="1021" class="celltext">chk d5ffbaf89418c243</text>
+<text x="1331" y="1039" class="celltext">-0x0724ea9269d42a72</text></g>
+</g>
+<g data-step="3"><text x="28" y="1118" class="step">Step 3/5: peeled -0x0724ea9269d42a72 from cell 2 (B only)</text>
+<text x="28" y="1141" class="small">Nonzero cells: 6 | Recoverable cells: 6</text>
+<text x="28" y="1161" class="small">Updated cells: 2, 6, 17 | Newly recoverable cells: none</text>
+<text x="28" y="1184" class="cellhead">HASH REGION 1 (cells 0..5)</text>
+<g><title>Cell 0: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="28" y="1196" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="35" y="1211" class="cellhead">#0 c:+0</text>
+<text x="35" y="1229" class="celltext">key 0000000000000000</text>
+<text x="35" y="1245" class="celltext">chk 0000000000000000</text>
+<text x="35" y="1263" class="celltext">empty</text></g>
+<g><title>Cell 1: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="184" y="1196" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="191" y="1211" class="cellhead">#1 c:+0</text>
+<text x="191" y="1229" class="celltext">key 0000000000000000</text>
+<text x="191" y="1245" class="celltext">chk 0000000000000000</text>
+<text x="191" y="1263" class="celltext">empty</text></g>
+<g><title>Cell 2: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000 SOURCE</title><rect x="340" y="1196" width="148" height="78" rx="6" fill="#ffffff" stroke="#172b4d" stroke-width="3"/>
+<text x="347" y="1211" class="cellhead">#2 c:+0</text>
+<text x="347" y="1229" class="celltext">key 0000000000000000</text>
+<text x="347" y="1245" class="celltext">chk 0000000000000000</text>
+<text x="347" y="1263" class="celltext">empty</text></g>
+<g><title>Cell 3: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="28" y="1282" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="35" y="1297" class="cellhead">#3 c:+0</text>
+<text x="35" y="1315" class="celltext">key 0000000000000000</text>
+<text x="35" y="1331" class="celltext">chk 0000000000000000</text>
+<text x="35" y="1349" class="celltext">empty</text></g>
+<g><title>Cell 4: count -1, key XOR 540f172e046ef165, checksum XOR 661185e5e9acc29d</title><rect x="184" y="1282" width="148" height="78" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+<text x="191" y="1297" class="cellhead">#4 c:-1</text>
+<text x="191" y="1315" class="celltext">key 540f172e046ef165</text>
+<text x="191" y="1331" class="celltext">chk 661185e5e9acc29d</text>
+<text x="191" y="1349" class="celltext">-0x540f172e046ef165</text></g>
+<g><title>Cell 5: count 1, key XOR 32469675332a0efc, checksum XOR 8b91bea0b8b2f6ab</title><rect x="340" y="1282" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="347" y="1297" class="cellhead">#5 c:+1</text>
+<text x="347" y="1315" class="celltext">key 32469675332a0efc</text>
+<text x="347" y="1331" class="celltext">chk 8b91bea0b8b2f6ab</text>
+<text x="347" y="1349" class="celltext">+0x32469675332a0efc</text></g>
+<text x="520" y="1184" class="cellhead">HASH REGION 2 (cells 6..11)</text>
+<g><title>Cell 6: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="520" y="1196" width="148" height="78" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+<text x="527" y="1211" class="cellhead">#6 c:+0</text>
+<text x="527" y="1229" class="celltext">key 0000000000000000</text>
+<text x="527" y="1245" class="celltext">chk 0000000000000000</text>
+<text x="527" y="1263" class="celltext">empty</text></g>
+<g><title>Cell 7: count 1, key XOR 32469675332a0efc, checksum XOR 8b91bea0b8b2f6ab</title><rect x="676" y="1196" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="683" y="1211" class="cellhead">#7 c:+1</text>
+<text x="683" y="1229" class="celltext">key 32469675332a0efc</text>
+<text x="683" y="1245" class="celltext">chk 8b91bea0b8b2f6ab</text>
+<text x="683" y="1263" class="celltext">+0x32469675332a0efc</text></g>
+<g><title>Cell 8: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="832" y="1196" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="839" y="1211" class="cellhead">#8 c:+0</text>
+<text x="839" y="1229" class="celltext">key 0000000000000000</text>
+<text x="839" y="1245" class="celltext">chk 0000000000000000</text>
+<text x="839" y="1263" class="celltext">empty</text></g>
+<g><title>Cell 9: count -1, key XOR 540f172e046ef165, checksum XOR 661185e5e9acc29d</title><rect x="520" y="1282" width="148" height="78" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+<text x="527" y="1297" class="cellhead">#9 c:-1</text>
+<text x="527" y="1315" class="celltext">key 540f172e046ef165</text>
+<text x="527" y="1331" class="celltext">chk 661185e5e9acc29d</text>
+<text x="527" y="1349" class="celltext">-0x540f172e046ef165</text></g>
+<g><title>Cell 10: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="676" y="1282" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="683" y="1297" class="cellhead">#10 c:+0</text>
+<text x="683" y="1315" class="celltext">key 0000000000000000</text>
+<text x="683" y="1331" class="celltext">chk 0000000000000000</text>
+<text x="683" y="1349" class="celltext">empty</text></g>
+<g><title>Cell 11: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="832" y="1282" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="839" y="1297" class="cellhead">#11 c:+0</text>
+<text x="839" y="1315" class="celltext">key 0000000000000000</text>
+<text x="839" y="1331" class="celltext">chk 0000000000000000</text>
+<text x="839" y="1349" class="celltext">empty</text></g>
+<text x="1012" y="1184" class="cellhead">HASH REGION 3 (cells 12..17)</text>
+<g><title>Cell 12: count -1, key XOR 540f172e046ef165, checksum XOR 661185e5e9acc29d</title><rect x="1012" y="1196" width="148" height="78" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+<text x="1019" y="1211" class="cellhead">#12 c:-1</text>
+<text x="1019" y="1229" class="celltext">key 540f172e046ef165</text>
+<text x="1019" y="1245" class="celltext">chk 661185e5e9acc29d</text>
+<text x="1019" y="1263" class="celltext">-0x540f172e046ef165</text></g>
+<g><title>Cell 13: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1168" y="1196" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1175" y="1211" class="cellhead">#13 c:+0</text>
+<text x="1175" y="1229" class="celltext">key 0000000000000000</text>
+<text x="1175" y="1245" class="celltext">chk 0000000000000000</text>
+<text x="1175" y="1263" class="celltext">empty</text></g>
+<g><title>Cell 14: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1324" y="1196" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1331" y="1211" class="cellhead">#14 c:+0</text>
+<text x="1331" y="1229" class="celltext">key 0000000000000000</text>
+<text x="1331" y="1245" class="celltext">chk 0000000000000000</text>
+<text x="1331" y="1263" class="celltext">empty</text></g>
+<g><title>Cell 15: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1012" y="1282" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1019" y="1297" class="cellhead">#15 c:+0</text>
+<text x="1019" y="1315" class="celltext">key 0000000000000000</text>
+<text x="1019" y="1331" class="celltext">chk 0000000000000000</text>
+<text x="1019" y="1349" class="celltext">empty</text></g>
+<g><title>Cell 16: count 1, key XOR 32469675332a0efc, checksum XOR 8b91bea0b8b2f6ab</title><rect x="1168" y="1282" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="1175" y="1297" class="cellhead">#16 c:+1</text>
+<text x="1175" y="1315" class="celltext">key 32469675332a0efc</text>
+<text x="1175" y="1331" class="celltext">chk 8b91bea0b8b2f6ab</text>
+<text x="1175" y="1349" class="celltext">+0x32469675332a0efc</text></g>
+<g><title>Cell 17: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1324" y="1282" width="148" height="78" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+<text x="1331" y="1297" class="cellhead">#17 c:+0</text>
+<text x="1331" y="1315" class="celltext">key 0000000000000000</text>
+<text x="1331" y="1331" class="celltext">chk 0000000000000000</text>
+<text x="1331" y="1349" class="celltext">empty</text></g>
+</g>
+<g data-step="4"><text x="28" y="1428" class="step">Step 4/5: peeled -0x540f172e046ef165 from cell 4 (B only)</text>
+<text x="28" y="1451" class="small">Nonzero cells: 3 | Recoverable cells: 3</text>
+<text x="28" y="1471" class="small">Updated cells: 4, 9, 12 | Newly recoverable cells: none</text>
+<text x="28" y="1494" class="cellhead">HASH REGION 1 (cells 0..5)</text>
+<g><title>Cell 0: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="28" y="1506" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="35" y="1521" class="cellhead">#0 c:+0</text>
+<text x="35" y="1539" class="celltext">key 0000000000000000</text>
+<text x="35" y="1555" class="celltext">chk 0000000000000000</text>
+<text x="35" y="1573" class="celltext">empty</text></g>
+<g><title>Cell 1: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="184" y="1506" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="191" y="1521" class="cellhead">#1 c:+0</text>
+<text x="191" y="1539" class="celltext">key 0000000000000000</text>
+<text x="191" y="1555" class="celltext">chk 0000000000000000</text>
+<text x="191" y="1573" class="celltext">empty</text></g>
+<g><title>Cell 2: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="340" y="1506" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="347" y="1521" class="cellhead">#2 c:+0</text>
+<text x="347" y="1539" class="celltext">key 0000000000000000</text>
+<text x="347" y="1555" class="celltext">chk 0000000000000000</text>
+<text x="347" y="1573" class="celltext">empty</text></g>
+<g><title>Cell 3: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="28" y="1592" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="35" y="1607" class="cellhead">#3 c:+0</text>
+<text x="35" y="1625" class="celltext">key 0000000000000000</text>
+<text x="35" y="1641" class="celltext">chk 0000000000000000</text>
+<text x="35" y="1659" class="celltext">empty</text></g>
+<g><title>Cell 4: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000 SOURCE</title><rect x="184" y="1592" width="148" height="78" rx="6" fill="#ffffff" stroke="#172b4d" stroke-width="3"/>
+<text x="191" y="1607" class="cellhead">#4 c:+0</text>
+<text x="191" y="1625" class="celltext">key 0000000000000000</text>
+<text x="191" y="1641" class="celltext">chk 0000000000000000</text>
+<text x="191" y="1659" class="celltext">empty</text></g>
+<g><title>Cell 5: count 1, key XOR 32469675332a0efc, checksum XOR 8b91bea0b8b2f6ab</title><rect x="340" y="1592" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="347" y="1607" class="cellhead">#5 c:+1</text>
+<text x="347" y="1625" class="celltext">key 32469675332a0efc</text>
+<text x="347" y="1641" class="celltext">chk 8b91bea0b8b2f6ab</text>
+<text x="347" y="1659" class="celltext">+0x32469675332a0efc</text></g>
+<text x="520" y="1494" class="cellhead">HASH REGION 2 (cells 6..11)</text>
+<g><title>Cell 6: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="520" y="1506" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="527" y="1521" class="cellhead">#6 c:+0</text>
+<text x="527" y="1539" class="celltext">key 0000000000000000</text>
+<text x="527" y="1555" class="celltext">chk 0000000000000000</text>
+<text x="527" y="1573" class="celltext">empty</text></g>
+<g><title>Cell 7: count 1, key XOR 32469675332a0efc, checksum XOR 8b91bea0b8b2f6ab</title><rect x="676" y="1506" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="683" y="1521" class="cellhead">#7 c:+1</text>
+<text x="683" y="1539" class="celltext">key 32469675332a0efc</text>
+<text x="683" y="1555" class="celltext">chk 8b91bea0b8b2f6ab</text>
+<text x="683" y="1573" class="celltext">+0x32469675332a0efc</text></g>
+<g><title>Cell 8: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="832" y="1506" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="839" y="1521" class="cellhead">#8 c:+0</text>
+<text x="839" y="1539" class="celltext">key 0000000000000000</text>
+<text x="839" y="1555" class="celltext">chk 0000000000000000</text>
+<text x="839" y="1573" class="celltext">empty</text></g>
+<g><title>Cell 9: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="520" y="1592" width="148" height="78" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+<text x="527" y="1607" class="cellhead">#9 c:+0</text>
+<text x="527" y="1625" class="celltext">key 0000000000000000</text>
+<text x="527" y="1641" class="celltext">chk 0000000000000000</text>
+<text x="527" y="1659" class="celltext">empty</text></g>
+<g><title>Cell 10: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="676" y="1592" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="683" y="1607" class="cellhead">#10 c:+0</text>
+<text x="683" y="1625" class="celltext">key 0000000000000000</text>
+<text x="683" y="1641" class="celltext">chk 0000000000000000</text>
+<text x="683" y="1659" class="celltext">empty</text></g>
+<g><title>Cell 11: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="832" y="1592" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="839" y="1607" class="cellhead">#11 c:+0</text>
+<text x="839" y="1625" class="celltext">key 0000000000000000</text>
+<text x="839" y="1641" class="celltext">chk 0000000000000000</text>
+<text x="839" y="1659" class="celltext">empty</text></g>
+<text x="1012" y="1494" class="cellhead">HASH REGION 3 (cells 12..17)</text>
+<g><title>Cell 12: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1012" y="1506" width="148" height="78" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+<text x="1019" y="1521" class="cellhead">#12 c:+0</text>
+<text x="1019" y="1539" class="celltext">key 0000000000000000</text>
+<text x="1019" y="1555" class="celltext">chk 0000000000000000</text>
+<text x="1019" y="1573" class="celltext">empty</text></g>
+<g><title>Cell 13: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1168" y="1506" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1175" y="1521" class="cellhead">#13 c:+0</text>
+<text x="1175" y="1539" class="celltext">key 0000000000000000</text>
+<text x="1175" y="1555" class="celltext">chk 0000000000000000</text>
+<text x="1175" y="1573" class="celltext">empty</text></g>
+<g><title>Cell 14: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1324" y="1506" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1331" y="1521" class="cellhead">#14 c:+0</text>
+<text x="1331" y="1539" class="celltext">key 0000000000000000</text>
+<text x="1331" y="1555" class="celltext">chk 0000000000000000</text>
+<text x="1331" y="1573" class="celltext">empty</text></g>
+<g><title>Cell 15: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1012" y="1592" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1019" y="1607" class="cellhead">#15 c:+0</text>
+<text x="1019" y="1625" class="celltext">key 0000000000000000</text>
+<text x="1019" y="1641" class="celltext">chk 0000000000000000</text>
+<text x="1019" y="1659" class="celltext">empty</text></g>
+<g><title>Cell 16: count 1, key XOR 32469675332a0efc, checksum XOR 8b91bea0b8b2f6ab</title><rect x="1168" y="1592" width="148" height="78" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1"/>
+<text x="1175" y="1607" class="cellhead">#16 c:+1</text>
+<text x="1175" y="1625" class="celltext">key 32469675332a0efc</text>
+<text x="1175" y="1641" class="celltext">chk 8b91bea0b8b2f6ab</text>
+<text x="1175" y="1659" class="celltext">+0x32469675332a0efc</text></g>
+<g><title>Cell 17: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1324" y="1592" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1331" y="1607" class="cellhead">#17 c:+0</text>
+<text x="1331" y="1625" class="celltext">key 0000000000000000</text>
+<text x="1331" y="1641" class="celltext">chk 0000000000000000</text>
+<text x="1331" y="1659" class="celltext">empty</text></g>
+</g>
+<g data-step="5"><text x="28" y="1738" class="step">Step 5/5: peeled +0x32469675332a0efc from cell 5 (A only)</text>
+<text x="28" y="1761" class="small">Nonzero cells: 0 | Recoverable cells: 0</text>
+<text x="28" y="1781" class="small">Updated cells: 5, 7, 16 | Newly recoverable cells: none</text>
+<text x="28" y="1804" class="cellhead">HASH REGION 1 (cells 0..5)</text>
+<g><title>Cell 0: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="28" y="1816" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="35" y="1831" class="cellhead">#0 c:+0</text>
+<text x="35" y="1849" class="celltext">key 0000000000000000</text>
+<text x="35" y="1865" class="celltext">chk 0000000000000000</text>
+<text x="35" y="1883" class="celltext">empty</text></g>
+<g><title>Cell 1: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="184" y="1816" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="191" y="1831" class="cellhead">#1 c:+0</text>
+<text x="191" y="1849" class="celltext">key 0000000000000000</text>
+<text x="191" y="1865" class="celltext">chk 0000000000000000</text>
+<text x="191" y="1883" class="celltext">empty</text></g>
+<g><title>Cell 2: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="340" y="1816" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="347" y="1831" class="cellhead">#2 c:+0</text>
+<text x="347" y="1849" class="celltext">key 0000000000000000</text>
+<text x="347" y="1865" class="celltext">chk 0000000000000000</text>
+<text x="347" y="1883" class="celltext">empty</text></g>
+<g><title>Cell 3: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="28" y="1902" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="35" y="1917" class="cellhead">#3 c:+0</text>
+<text x="35" y="1935" class="celltext">key 0000000000000000</text>
+<text x="35" y="1951" class="celltext">chk 0000000000000000</text>
+<text x="35" y="1969" class="celltext">empty</text></g>
+<g><title>Cell 4: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="184" y="1902" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="191" y="1917" class="cellhead">#4 c:+0</text>
+<text x="191" y="1935" class="celltext">key 0000000000000000</text>
+<text x="191" y="1951" class="celltext">chk 0000000000000000</text>
+<text x="191" y="1969" class="celltext">empty</text></g>
+<g><title>Cell 5: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000 SOURCE</title><rect x="340" y="1902" width="148" height="78" rx="6" fill="#ffffff" stroke="#172b4d" stroke-width="3"/>
+<text x="347" y="1917" class="cellhead">#5 c:+0</text>
+<text x="347" y="1935" class="celltext">key 0000000000000000</text>
+<text x="347" y="1951" class="celltext">chk 0000000000000000</text>
+<text x="347" y="1969" class="celltext">empty</text></g>
+<text x="520" y="1804" class="cellhead">HASH REGION 2 (cells 6..11)</text>
+<g><title>Cell 6: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="520" y="1816" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="527" y="1831" class="cellhead">#6 c:+0</text>
+<text x="527" y="1849" class="celltext">key 0000000000000000</text>
+<text x="527" y="1865" class="celltext">chk 0000000000000000</text>
+<text x="527" y="1883" class="celltext">empty</text></g>
+<g><title>Cell 7: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="676" y="1816" width="148" height="78" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+<text x="683" y="1831" class="cellhead">#7 c:+0</text>
+<text x="683" y="1849" class="celltext">key 0000000000000000</text>
+<text x="683" y="1865" class="celltext">chk 0000000000000000</text>
+<text x="683" y="1883" class="celltext">empty</text></g>
+<g><title>Cell 8: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="832" y="1816" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="839" y="1831" class="cellhead">#8 c:+0</text>
+<text x="839" y="1849" class="celltext">key 0000000000000000</text>
+<text x="839" y="1865" class="celltext">chk 0000000000000000</text>
+<text x="839" y="1883" class="celltext">empty</text></g>
+<g><title>Cell 9: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="520" y="1902" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="527" y="1917" class="cellhead">#9 c:+0</text>
+<text x="527" y="1935" class="celltext">key 0000000000000000</text>
+<text x="527" y="1951" class="celltext">chk 0000000000000000</text>
+<text x="527" y="1969" class="celltext">empty</text></g>
+<g><title>Cell 10: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="676" y="1902" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="683" y="1917" class="cellhead">#10 c:+0</text>
+<text x="683" y="1935" class="celltext">key 0000000000000000</text>
+<text x="683" y="1951" class="celltext">chk 0000000000000000</text>
+<text x="683" y="1969" class="celltext">empty</text></g>
+<g><title>Cell 11: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="832" y="1902" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="839" y="1917" class="cellhead">#11 c:+0</text>
+<text x="839" y="1935" class="celltext">key 0000000000000000</text>
+<text x="839" y="1951" class="celltext">chk 0000000000000000</text>
+<text x="839" y="1969" class="celltext">empty</text></g>
+<text x="1012" y="1804" class="cellhead">HASH REGION 3 (cells 12..17)</text>
+<g><title>Cell 12: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1012" y="1816" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1019" y="1831" class="cellhead">#12 c:+0</text>
+<text x="1019" y="1849" class="celltext">key 0000000000000000</text>
+<text x="1019" y="1865" class="celltext">chk 0000000000000000</text>
+<text x="1019" y="1883" class="celltext">empty</text></g>
+<g><title>Cell 13: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1168" y="1816" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1175" y="1831" class="cellhead">#13 c:+0</text>
+<text x="1175" y="1849" class="celltext">key 0000000000000000</text>
+<text x="1175" y="1865" class="celltext">chk 0000000000000000</text>
+<text x="1175" y="1883" class="celltext">empty</text></g>
+<g><title>Cell 14: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1324" y="1816" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1331" y="1831" class="cellhead">#14 c:+0</text>
+<text x="1331" y="1849" class="celltext">key 0000000000000000</text>
+<text x="1331" y="1865" class="celltext">chk 0000000000000000</text>
+<text x="1331" y="1883" class="celltext">empty</text></g>
+<g><title>Cell 15: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1012" y="1902" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1019" y="1917" class="cellhead">#15 c:+0</text>
+<text x="1019" y="1935" class="celltext">key 0000000000000000</text>
+<text x="1019" y="1951" class="celltext">chk 0000000000000000</text>
+<text x="1019" y="1969" class="celltext">empty</text></g>
+<g><title>Cell 16: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1168" y="1902" width="148" height="78" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+<text x="1175" y="1917" class="cellhead">#16 c:+0</text>
+<text x="1175" y="1935" class="celltext">key 0000000000000000</text>
+<text x="1175" y="1951" class="celltext">chk 0000000000000000</text>
+<text x="1175" y="1969" class="celltext">empty</text></g>
+<g><title>Cell 17: count 0, key XOR 0000000000000000, checksum XOR 0000000000000000</title><rect x="1324" y="1902" width="148" height="78" rx="6" fill="#ffffff" stroke="#c3cfdd" stroke-width="1"/>
+<text x="1331" y="1917" class="cellhead">#17 c:+0</text>
+<text x="1331" y="1935" class="celltext">key 0000000000000000</text>
+<text x="1331" y="1951" class="celltext">chk 0000000000000000</text>
+<text x="1331" y="1969" class="celltext">empty</text></g>
+</g>
+<text x="28" y="2084" class="small">Completion is the decoder's residual check; use the CLI HashSet oracle result to independently verify the recovered keys.</text>
+</svg>

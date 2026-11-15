@@ -8,5 +8,6 @@ pub mod dataset;
 pub mod encoding;
 pub mod hash;
 pub mod iblt;
+pub mod svg;
 
 pub use iblt::{Cell, Config, DecodeReport, DecodeStatus, DecodeTrace, Iblt, IbltError, PeelStep};

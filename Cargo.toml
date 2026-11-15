@@ -1,0 +1,13 @@
+[package]
+name = "iblt-set-reconciliation"
+version = "0.1.0"
+edition = "2024"
+autobins = false
+description = "An educational Invertible Bloom Lookup Table for unordered set reconciliation"
+repository = "https://github.com/andrii2g/iblt-set-reconciliation"
+
+[dependencies]
+blake3 = "1"
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

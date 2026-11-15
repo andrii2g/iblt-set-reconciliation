@@ -6,6 +6,10 @@ autobins = false
 description = "An educational Invertible Bloom Lookup Table for unordered set reconciliation"
 repository = "https://github.com/andrii2g/iblt-set-reconciliation"
 
+[[bin]]
+name = "iblt-reconcile"
+path = "src/main.rs"
+
 [dependencies]
 blake3 = "1"
 clap = { version = "4", features = ["derive"] }

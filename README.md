@@ -7,7 +7,7 @@ when the residual table is sufficiently lightly loaded.
 
 The core library supports insertion, subtraction, deterministic hashing, and
 decoding with an optional peeling trace. Positive recovered keys belong to
-`A \\ B`; negative recovered keys belong to `B \\ A`.
+`A \ B`; negative recovered keys belong to `B \ A`.
 
 ```rust
 use std::collections::HashSet;
@@ -40,6 +40,35 @@ Run the core checks with a current Rust toolchain supporting edition 2024:
 ```sh
 cargo test --lib --test core
 cargo clippy --lib -- -D warnings
+```
+
+Run a reconciliation of two 100,000-key sets with 50 total differences:
+
+```sh
+cargo run --release -- demo --common 99975 --a-only 25 --b-only 25 --cells 120 --seed 42 --json output/demo.json --summary output/a.iblt
+```
+
+`--data-seed` controls deterministic input generation independently of the table
+hash seed. The CLI computes exact `HashSet` differences, encodes A, decodes the
+received summary, subtracts B, and checks the recovered keys against the oracle.
+The report includes directional keys, residual cells, peeling steps, actual
+summary bytes, and separately measured construction/encoding/subtraction/decode
+times. Each set can contain up to 100,000 keys.
+
+A summary uses a 24-byte header followed by 20 bytes per cell. Header fields are
+`IBLT` magic (4 bytes), format version (u16), hash/layout version (u16), cell count
+(u64), and hash seed (u64); each cell is count (i32), key XOR (u64), and checksum XOR
+(u64). All integers are little endian. Unknown versions, invalid capacities,
+truncation, and trailing bytes are rejected. The byte comparison is one A summary
+against A's raw 8-byte identifiers; it excludes transport framing and any reply.
+
+Exit codes: `0` complete recovery matching the oracle; `1` validation or I/O error;
+`2` CLI usage error; `3` incomplete recovery; `4` oracle mismatch. For example,
+this deliberately stalled case exits with code 3 and retains three nonzero cells
+even though their counts are zero:
+
+```sh
+cargo run --release -- demo --common 0 --a-only 1 --b-only 1 --cells 3
 ```
 
 Background: Goodrich and Mitzenmacher,

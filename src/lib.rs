@@ -4,6 +4,8 @@
 //! zero. Checksums make recovery probabilistic: an application needing exact
 //! verification must compare the decoded result with an independent oracle.
 
+pub mod dataset;
+pub mod encoding;
 pub mod hash;
 pub mod iblt;
 

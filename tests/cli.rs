@@ -81,3 +81,49 @@ fn diagram_shows_an_incomplete_zero_count_residual() {
     assert!(svg.contains("3 nonzero residual cells"));
     fs::remove_file(path).unwrap();
 }
+
+#[test]
+fn sweep_exports_seeded_measurements_and_treats_honest_stalls_as_results() {
+    let csv = output_path("sweep").with_extension("csv");
+    let json = output_path("sweep");
+    let output = binary()
+        .args([
+            "sweep",
+            "--differences",
+            "0,2,5",
+            "--cells",
+            "3,30",
+            "--trials",
+            "3",
+            "--seed-start",
+            "100",
+            "--output",
+        ])
+        .arg(&csv)
+        .arg("--json")
+        .arg(&json)
+        .output()
+        .unwrap();
+    assert!(
+        output.status.success(),
+        "{}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    let rows: serde_json::Value = serde_json::from_slice(&fs::read(&json).unwrap()).unwrap();
+    let rows = rows.as_array().unwrap();
+    assert_eq!(rows.len(), 6);
+    assert_eq!(rows[2]["differences"], 2);
+    assert_eq!(rows[2]["cells"], 3);
+    assert_eq!(rows[2]["incomplete"], 3);
+    for row in rows {
+        assert_eq!(row["seed_start"], 100);
+        assert_eq!(row["data_seed"], 7);
+        assert_eq!(row["false_completions"], 0);
+        assert_eq!(row["partial_mismatches"], 0);
+    }
+    let csv_text = fs::read_to_string(&csv).unwrap();
+    assert_eq!(csv_text.lines().count(), 7);
+    assert!(csv_text.lines().next().unwrap().contains("seed_start"));
+    fs::remove_file(csv).unwrap();
+    fs::remove_file(json).unwrap();
+}

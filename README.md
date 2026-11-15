@@ -13,14 +13,16 @@ decoding with an optional peeling trace. Positive recovered keys belong to
 use std::collections::HashSet;
 use iblt_set_reconciliation::{Config, DecodeStatus, Iblt};
 
-let config = Config::new(30, 42)?;
-let a = Iblt::from_set(config, &HashSet::from([1, 2, 3]))?;
-let b = Iblt::from_set(config, &HashSet::from([2, 3, 4]))?;
-let report = a.subtract(&b)?.decode();
-assert_eq!(report.status, DecodeStatus::Complete);
-assert_eq!(report.only_a, [1]);
-assert_eq!(report.only_b, [4]);
-# Ok::<(), iblt_set_reconciliation::IbltError>(())
+fn main() -> Result<(), iblt_set_reconciliation::IbltError> {
+    let config = Config::new(30, 42)?;
+    let a = Iblt::from_set(config, &HashSet::from([1, 2, 3]))?;
+    let b = Iblt::from_set(config, &HashSet::from([2, 3, 4]))?;
+    let report = a.subtract(&b)?.decode();
+    assert_eq!(report.status, DecodeStatus::Complete);
+    assert_eq!(report.only_a, [1]);
+    assert_eq!(report.only_b, [4]);
+    Ok(())
+}
 ```
 
 Each cell stores an `i32` count and two `u64` XOR fields. Hash version 1 uses
@@ -35,11 +37,13 @@ not imply success. An incomplete report retains the recovered keys and counts
 the remaining nonzero cells. Checksums are probabilistic, so completion is not a
 collision-free proof of equality.
 
-Run the core checks with a current Rust toolchain supporting edition 2024:
+Run the local checks (tested with Rust 1.97.1, edition 2024):
 
 ```sh
-cargo test --lib --test core
-cargo clippy --lib -- -D warnings
+cargo fmt --all -- --check
+cargo test --all-targets
+cargo test --doc
+cargo clippy --all-targets -- -D warnings
 ```
 
 Run a reconciliation of two 100,000-key sets with 50 total differences:
@@ -88,6 +92,45 @@ inspect failure in the same format.
 
 Committed examples: [five-key peeling cascade](docs/peeling.svg) and
 [stalled zero-count residual](docs/stalled.svg).
+
+Sweep explicit capacities and hash seeds, saving CSV and optional JSON:
+
+```sh
+cargo run --release -- sweep --differences 5,10,25,50,100 --cells 6,12,24,36,60,90,120,150,210,300 --trials 1000 --data-seed 7 --seed-start 0 --output output/sweep.csv --json output/sweep.json
+```
+
+`differences` is the total symmetric difference, `|A \ B| + |B \ A|`. An odd
+count uses `floor(d/2)` A-only keys and the remaining B-only keys. For each count,
+the sweep holds the key sample fixed and tests consecutive hash seeds, reusing
+each seed across capacities. It builds only the signed difference to avoid
+repeatedly hashing shared keys; tests verify that this produces exactly the same
+cells as constructing and subtracting full tables. The separate `demo` command
+measures the full path on large sets. Capacities are never inferred or retried.
+
+CSV/JSON rows retain the data seed, hash seed range, summary bytes, exact success
+rate, incomplete count, decoded-key and peeling-step totals, and mean decode
+time. False completions and invalid partial outputs are counted separately;
+ordinary incomplete trials are valid experiment outcomes, so `sweep` exits zero
+unless an error or oracle mismatch occurs. Timings exclude construction,
+verification, and visualization. `--help`, `demo --help`, and `sweep --help`
+describe all options.
+
+In the recorded 50,000-trial sweep, 50 differences with 120 cells recovered
+exactly in **973/1,000 trials (97.3%)**, using **2,424 summary bytes**. With 210
+cells, recovery was 997/1,000 (99.7%) using 4,224 bytes. All five end-to-end cases
+with up to 100,000 keys per set and 5–100 differences matched the exact oracle.
+The 100,000-key, 50-difference example transmitted a 2,424-byte summary versus
+800,000 bytes of raw A identifiers. See [measured results and reproduction
+commands](docs/results.md) and the [complete sweep CSV](docs/results/sweep.csv).
+
+These rates describe the selected dataset and finite seed sample; even an
+observed 100% rate is not a guarantee. Changing capacity remaps locations, so
+individual outcomes and small-sample rates need not be monotonic. A stalled
+residual is reported explicitly, and 64-bit checksum collisions remain possible.
+
+The main modules are `iblt` (cells and peeling), `hash` (versioned deterministic
+locations/checksums), `encoding` (wire format), `dataset` (sets and exact oracle),
+`svg` (trace visualization), and `experiment` (seed/capacity sweeps).
 
 Background: Goodrich and Mitzenmacher,
 [Invertible Bloom Lookup Tables](https://arxiv.org/abs/1101.2245).

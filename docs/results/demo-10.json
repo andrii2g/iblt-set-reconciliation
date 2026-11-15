@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "config": {
+    "cells": 30,
+    "seed": 42
+  },
+  "data_seed": 7,
+  "common": 99995,
+  "set_a_keys": 100000,
+  "set_b_keys": 100000,
+  "expected_only_a": 5,
+  "expected_only_b": 5,
+  "summary_bytes": 624,
+  "raw_a_bytes": 800000,
+  "decoded_keys": 10,
+  "oracle_match": true,
+  "recovered_keys_valid": true,
+  "decode": {
+    "status": "complete",
+    "only_a": [
+      3723064976477495781,
+      4851041333588475174,
+      11170836239412835036,
+      12217170049774333718,
+      15241746967352404039
+    ],
+    "only_b": [
+      3192197025119844472,
+      7448004816917039430,
+      8889547076023455473,
+      11693751896484060897,
+      17438829730745843292
+    ],
+    "peeling_steps": 10,
+    "residual_cells": 0
+  },
+  "timings": {
+    "build_a_ns": 29809500,
+    "build_b_ns": 29147000,
+    "encode_ns": 2500,
+    "deserialize_ns": 4400,
+    "subtract_ns": 4600,
+    "decode_ns": 28800
+  }
+}
